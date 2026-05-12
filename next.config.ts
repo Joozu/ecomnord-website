@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
-const wordpressHostname = process.env.WORDPRESS_HOSTNAME;
 const wordpressUrl = process.env.WORDPRESS_URL;
+const wordpressHostname =
+  process.env.WORDPRESS_HOSTNAME ??
+  (wordpressUrl ? new URL(wordpressUrl).hostname : undefined);
 
 const nextConfig: NextConfig = {
-  output: "standalone",
   images: {
     remotePatterns: wordpressHostname
       ? [
