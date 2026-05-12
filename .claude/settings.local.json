@@ -13,7 +13,10 @@
       "Bash(mkdir:*)",
       "Bash(WORDPRESS_URL=\"\" WORDPRESS_HOSTNAME=\"\" pnpm build:*)",
       "Bash(grep:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ],
     "deny": [],
     "ask": []
