@@ -477,4 +477,67 @@ export async function getPostsByAuthorPaginated(
   });
 }
 
+// ── Cases (custom post type) ─────────────────────────────────────────────────
+
+export interface Case {
+  id: number;
+  slug: string;
+  date: string;
+  modified: string;
+  title: { rendered: string };
+  content: { rendered: string; protected: boolean };
+  excerpt: { rendered: string; protected: boolean };
+  acf?: Record<string, unknown>;
+  _embedded?: {
+    "wp:featuredmedia"?: Array<{ source_url: string; alt_text: string }>;
+  };
+}
+
+export async function getAllCases(): Promise<Case[]> {
+  return wordpressFetchGraceful<Case[]>(
+    "/wp-json/wp/v2/case",
+    [],
+    { per_page: 100, _embed: true },
+    ["wordpress", "cases"]
+  );
+}
+
+export async function getCaseBySlug(slug: string): Promise<Case | undefined> {
+  const cases = await wordpressFetchGraceful<Case[]>(
+    "/wp-json/wp/v2/case",
+    [],
+    { slug, _embed: true }
+  );
+  return cases[0];
+}
+
+export async function getAllCaseSlugs(): Promise<{ slug: string }[]> {
+  if (!isConfigured) return [];
+  try {
+    const cases = await wordpressFetch<Case[]>("/wp-json/wp/v2/case", {
+      per_page: 100,
+      _fields: "slug",
+    });
+    return cases.map((c) => ({ slug: c.slug }));
+  } catch {
+    console.warn("WordPress unavailable, skipping static generation for cases");
+    return [];
+  }
+}
+
+export async function getAllCasesForSitemap(): Promise<
+  { slug: string; modified: string }[]
+> {
+  if (!isConfigured) return [];
+  try {
+    const cases = await wordpressFetch<Case[]>("/wp-json/wp/v2/case", {
+      per_page: 100,
+      _fields: "slug,modified",
+    });
+    return cases.map((c) => ({ slug: c.slug, modified: c.modified }));
+  } catch {
+    return [];
+  }
+}
+
 export { WordPressAPIError };

@@ -1,28 +1,64 @@
 import "./globals.css";
 
-import { Inter as FontSans } from "next/font/google";
-import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Nav } from "@/components/layout/nav";
-import { Footer } from "@/components/layout/footer";
+import { Newsreader, Geist, Geist_Mono } from "next/font/google";
+import { EcomNordNav } from "@/components/layout/ecomnord-nav";
 import { Analytics } from "@vercel/analytics/react";
-
 import { siteConfig } from "@/site.config";
-import { cn } from "@/lib/utils";
 
 import type { Metadata } from "next";
 
-const font = FontSans({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ["200", "300", "400"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+const geist = Geist({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-geist-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "WordPress & Next.js Starter by 9d8",
-  description:
-    "A starter template for Next.js with WordPress as a headless CMS.",
+  title: {
+    default: "EcomNord — Google Ads & Feed Management",
+    template: "%s · EcomNord",
+  },
+  description: siteConfig.site_description,
   metadataBase: new URL(siteConfig.site_domain),
-  alternates: {
-    canonical: "/",
+  alternates: { canonical: "/" },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+  },
+  openGraph: {
+    type: "website",
+    locale: "da_DK",
+    url: siteConfig.site_domain,
+    siteName: siteConfig.site_name,
+    title: "EcomNord — Google Ads & Feed Management",
+    description: siteConfig.site_description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "EcomNord — Google Ads & Feed Management",
+    description: siteConfig.site_description,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -32,19 +68,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="da"
+      className={`${newsreader.variable} ${geist.variable} ${geistMono.variable}`}
+    >
       <head />
-      <body className={cn("min-h-screen font-sans antialiased", font.variable)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Nav />
-          {children}
-          <Footer />
-        </ThemeProvider>
+      <body className="bg-paper text-ink font-body antialiased">
+        <EcomNordNav />
+        {children}
         <Analytics />
       </body>
     </html>
