@@ -1,182 +1,331 @@
-import Link from "next/link";
-import type { Metadata } from "next";
+// app/priser/page.tsx
+// Alle farver, fonte og layout følger EcomNord designsystem
+
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Priser — EcomNord",
-  description:
-    "Transparente priser for feed management, Google Ads og Merchant Center audit. Ingen skjulte bureaugebyrer.",
-  alternates: { canonical: "/priser" },
-};
+  title: 'Priser — EcomNord',
+  description: 'Gennemsigtig prissætning for senior Google Ads-specialisering. Ingen pakker, ingen procenter — du køber dedikeret tid.',
+}
 
-const pricing = [
+const pricingTiers = [
   {
-    id: "audit",
-    label: "Merchant Center Audit",
-    price: "Gratis",
-    period: "Engangs",
-    description:
-      "En systematisk gennemgang af din Merchant Center-konto. Du modtager en skriftlig rapport med fejl, prioritering og konkrete handlingstrin.",
-    details: [
-      "Feed-diagnostik og fejlklassificering",
-      "Politikafvigelser og suspension-risici",
-      "Skriftlig rapport inden for 2 uger",
-      "Ingen forpligtelse til videre samarbejde",
-    ],
-    note: "Tilbuddet gælder for webshops med eksisterende Merchant Center-konto og Google Ads-historik.",
-    highlight: true,
+    days: '½ dag / uge',
+    monthlyPrice: '10.000',
+    dayRate: '20.000',
+    description: 'Udgangspunktet for nye samarbejder. Nok tid til løbende optimering, feed-arbejde og strategisk retning.',
   },
   {
-    id: "feed",
-    label: "Feed Management",
-    price: "Fra DKK 4.800",
-    period: "pr. måned",
-    description:
-      "Løbende vedligeholdelse og optimering af dit produktfeed. Prisen afhænger af katalogets størrelse og kompleksitet.",
-    details: [
-      "Supplemental feed og custom labels",
-      "Løbende title- og typeoptimering",
-      "Diagnostik og fejlrydning",
-      "Månedlig feedrapport",
-    ],
-    note: "Opstartsgebyr på DKK 9.600 for ny feedstruktur.",
-    highlight: false,
+    days: '1 dag / uge',
+    monthlyPrice: '18.000',
+    dayRate: '18.000',
+    description: 'Til konti der er klar til at accelerere. Mere tid betyder dybere kendskab og hurtigere beslutninger.',
+    featured: true,
   },
   {
-    id: "ads",
-    label: "Google Ads Management",
-    price: "Fra DKK 6.400",
-    period: "pr. måned",
-    description:
-      "Kampagnestyring af Shopping, Performance Max og Search. Prisen er fast — ikke procentbaseret på adspend.",
-    details: [
-      "Kampagnestruktur og budgetstrategi",
-      "Negative søgeord og placementsstyring",
-      "Konverteringssporing og attribution",
-      "Månedlige performancerapporter",
-    ],
-    note: "Kræver minimum DKK 15.000/måned i adspend for at samarbejdet giver mening.",
-    highlight: false,
+    days: '2 dage / uge',
+    monthlyPrice: '32.000',
+    dayRate: '16.000',
+    description: 'Til ambitiøse webshops med høj kompleksitet eller flere markeder. Tæt daglig dialog.',
   },
   {
-    id: "sparring",
-    label: "Månedlig rådgivning",
-    price: "DKK 3.200",
-    period: "pr. måned",
-    description:
-      "Direkte adgang til Esben. Månedligt strategimøde og ad hoc support på feed- og kampagnespørgsmål.",
-    details: [
-      "60 min. månedligt strategimøde",
-      "Ad hoc support via email",
-      "Kvartalsvis performancereview",
-      "Ingen bindingsperiode",
-    ],
-    note: "Kan kombineres med feed management eller ads management.",
-    highlight: false,
+    days: '3 dage / uge',
+    monthlyPrice: '45.000',
+    dayRate: '15.000',
+    description: 'Fuld prioritet. Til store konti hvor Google Ads er en kernedisciplin i forretningen.',
   },
-];
+]
 
 export default function PriserPage() {
   return (
-    <main>
-      <section className="border-b border-rule py-16">
-        <div className="container-en mx-auto">
-          <p className="eyebrow mb-4">Transparente priser</p>
-          <h1
-            className="font-display font-[200] text-ink leading-[0.98] tracking-[-0.035em]"
-            style={{ fontSize: "clamp(40px, 5.5vw, 80px)" }}
-          >
-            Priser
-          </h1>
-          <p className="mt-4 font-body text-[16px] text-ink-mid max-w-xl leading-[1.6]">
-            Faste priser, ikke procentbaserede bureaumodeller. Ingen
-            skjulte gebyrer, ingen binding udover det aftalte.
-          </p>
-        </div>
-      </section>
+    <main className="bg-[#FAF8F3] text-[#16140F] min-h-screen">
 
-      <section className="py-16">
-        <div className="container-en mx-auto">
-          <div className="grid gap-px border border-rule sm:grid-cols-2">
-            {pricing.map((p) => (
-              <div
-                key={p.id}
-                className={`p-8 border border-rule ${p.highlight ? "bg-copper-soft" : "bg-paper"}`}
+      {/* Hero */}
+      <section className="border-b border-[#DCD6C7] pt-32 pb-20 px-7 md:px-14">
+        <div className="max-w-[1280px] mx-auto">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-[#B6794D] mb-6">
+            — Priser
+          </p>
+          <div className="grid md:grid-cols-2 gap-16 items-end">
+            <div>
+              <h1
+                className="font-serif font-extralight leading-[1.05] mb-8"
+                style={{ fontSize: 'clamp(40px, 5.5vw, 80px)' }}
               >
-                {p.highlight && (
-                  <p className="eyebrow mb-3">Anbefalet startpunkt</p>
-                )}
-                <h2 className="font-display font-[300] text-[20px] text-ink leading-[1.1] tracking-[-0.02em] mb-4">
-                  {p.label}
-                </h2>
-                <div className="mb-4 flex items-baseline gap-2">
-                  <span className="font-display font-[200] text-[32px] text-ink leading-[1] tracking-[-0.03em]">
-                    {p.price}
-                  </span>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-soft">
-                    {p.period}
-                  </span>
-                </div>
-                <p className="font-body text-[15px] text-ink-mid leading-[1.6] mb-5">
-                  {p.description}
-                </p>
-                <ul className="space-y-2 mb-5">
-                  {p.details.map((d) => (
-                    <li key={d} className="flex gap-3 items-baseline">
-                      <span className="font-mono text-[10px] text-copper shrink-0">→</span>
-                      <span className="font-body text-[14px] text-ink-mid leading-[1.5]">{d}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="font-mono text-[10px] text-ink-soft leading-[1.5]">
-                  {p.note}
-                </p>
-              </div>
-            ))}
+                Du køber tid.<br />
+                Ikke en pakke.
+              </h1>
+              <p className="text-[#5A554B] text-lg leading-relaxed max-w-lg">
+                Ingen procenter af dit annoncebudget. Ingen foruddefinerede opgaver. Du køber dedikeret senior-tid — og vi bruger den på det der skaber mest værdi i din Google Ads-konto.
+              </p>
+            </div>
+            <div className="border-l border-[#DCD6C7] pl-12 hidden md:block">
+              <p className="text-[#5A554B] leading-relaxed">
+                Markedet er fyldt med bureauer der sælger pakker og freelancere der vedligeholder konti. EcomNord er noget andet: en specialiseret senior-profil der investerer i din forretning og vækster den — ikke bare holder den kørende.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-rule py-16">
-        <div className="container-en mx-auto">
-          <div className="grid gap-12 md:grid-cols-2 max-w-4xl">
-            <div>
-              <h2 className="font-display font-[300] text-[22px] text-ink leading-[1.1] tracking-[-0.025em] mb-4">
-                Hvad indgår ikke
-              </h2>
-              <ul className="space-y-2">
+      {/* Hvad tiden bruges på */}
+      <section className="border-b border-[#DCD6C7] py-20 px-7 md:px-14">
+        <div className="max-w-[1280px] mx-auto grid md:grid-cols-12 gap-8">
+          <div className="md:col-span-4">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-[#B6794D] mb-4">
+              — Hvad du køber
+            </p>
+            <h2
+              className="font-serif font-light leading-tight"
+              style={{ fontSize: 'clamp(28px, 3vw, 44px)' }}
+            >
+              Tid bruges altid på det der skaber mest værdi
+            </h2>
+          </div>
+          <div className="md:col-span-7 md:col-start-6 flex flex-col gap-8 pt-2">
+            <p className="text-[#5A554B] leading-relaxed text-lg">
+              God Google Shopping kræver mere end adgang til en konto. Det kræver kendskab til dine produkter, dine marginer, hvad der er på lager, hvad der skal flyttes og hvad der skal vækste. Jo tættere samarbejde — jo bedre kampagner.
+            </p>
+            <p className="text-[#5A554B] leading-relaxed text-lg">
+              For nogle kunder betyder det et fast ugentligt møde. For andre at jeg sidder fysisk hos jer og arbejder direkte fra jeres virkelighed. Fremmøde er ikke en ekstra ydelse — det er en del af arbejdet.
+            </p>
+            <div className="border-t border-[#DCD6C7] pt-8 grid grid-cols-2 gap-6">
+              {[
+                ['Feed-arkitektur', 'Titler, attributter, kategorier og datastruktur der performer'],
+                ['Merchant Center', 'Fejl, suspensions, politikker og optimering af produktdata'],
+                ['Shopping & PMax', 'Kampagnestruktur, budgivning og skalering'],
+                ['Forretningsindsigt', 'Marginer, sæsoner og beslutninger der forbedrer kampagnerne'],
+              ].map(([title, desc]) => (
+                <div key={title}>
+                  <p className="font-medium text-[#16140F] mb-1">{title}</p>
+                  <p className="text-[#8F8A7F] text-sm leading-relaxed">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Opstart */}
+      <section className="border-b border-[#DCD6C7] py-20 px-7 md:px-14">
+        <div className="max-w-[1280px] mx-auto">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-[#B6794D] mb-12">
+            — Kom i gang
+          </p>
+          <div className="grid md:grid-cols-12 gap-8">
+            <div className="md:col-span-5 border border-[#DCD6C7] p-10 flex flex-col justify-between gap-12">
+              <div>
+                <h2
+                  className="font-serif font-light leading-tight mb-4"
+                  style={{ fontSize: 'clamp(26px, 2.8vw, 40px)' }}
+                >
+                  Opstartspakke
+                </h2>
+                <p className="text-[#5A554B] leading-relaxed">
+                  Inden vi begynder skal jeg kende din forretning. Det er forudsætningen for at de første måneder skaber reel effekt og ikke bare vedligeholdelse.
+                </p>
+              </div>
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-2">Engangsfee</p>
+                <p className="font-serif font-light" style={{ fontSize: 'clamp(36px, 4vw, 56px)' }}>
+                  7.500 <span className="text-[#8F8A7F] text-2xl">kr.</span>
+                </p>
+                <p className="text-[#8F8A7F] text-sm mt-1">ex. moms</p>
+              </div>
+            </div>
+            <div className="md:col-span-6 md:col-start-7 flex flex-col justify-center gap-6">
+              <p className="text-[#5A554B] font-medium">Pakken inkluderer:</p>
+              <ul className="flex flex-col gap-4">
                 {[
-                  "Adspend (betales direkte til Google)",
-                  "Feed-platform (DataFeedWatch, Channable etc.)",
-                  "Webshop-platform eller CMS-tilpasninger",
-                  "Grafisk produktion og kreative assets",
+                  'Gennemgang af hele Google Ads-kontoen — struktur, kampagner, budgivning, tracking',
+                  'Audit af produktfeed — titler, attributter, kategorisering og datakvalitet',
+                  'Gennemgang af hjemmeside med fokus på konvertering, hastighed og feed-kompatibilitet',
+                  'Forretningssamtale om produkter, marginer, sæsoner og vækstmål',
+                  'Indledende strategimøde — fysisk eller remote — med konkret plan for samarbejdet',
                 ].map((item) => (
-                  <li key={item} className="flex gap-3 items-baseline">
-                    <span className="font-mono text-[10px] text-ink-soft shrink-0">×</span>
-                    <span className="font-body text-[15px] text-ink-mid">{item}</span>
+                  <li key={item} className="flex gap-4 text-[#5A554B] leading-relaxed">
+                    <span className="text-[#B6794D] font-mono mt-0.5">→</span>
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h2 className="font-display font-[300] text-[22px] text-ink leading-[1.1] tracking-[-0.025em] mb-4">
-                Hvad der passer til dig
-              </h2>
-              <p className="font-body text-[15px] text-ink-mid leading-[1.6] mb-4">
-                EcomNord er bedst egnet til webshops med et eksisterende
-                produktkatalog og en Google Ads-historik — men hvor der er
-                åbenlyse feed-problemer eller kampagnestrukturer der ikke
-                afspejler forretningen.
+          </div>
+        </div>
+      </section>
+
+      {/* Introduktionspris */}
+      <section className="border-b border-[#DCD6C7] py-20 px-7 md:px-14 bg-[#F2EFE7]">
+        <div className="max-w-[1280px] mx-auto grid md:grid-cols-12 gap-8 items-center">
+          <div className="md:col-span-5">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-[#B6794D] mb-4">
+              — For nye webshops
+            </p>
+            <h2
+              className="font-serif font-light leading-tight mb-6"
+              style={{ fontSize: 'clamp(26px, 2.8vw, 40px)' }}
+            >
+              Introduktionspris de første 3 måneder
+            </h2>
+            <p className="text-[#5A554B] leading-relaxed mb-8">
+              Til webshops med et Google Ads-spend under 30.000 kr./måned tilbyder jeg en introduktionspris de første 3 måneder. Det giver tid til at bevise værdien af samarbejdet — inden I tager stilling til det videre forløb.
+            </p>
+            <div className="border-t border-[#DCD6C7] pt-8">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-2">Månedspris — 3 måneder</p>
+              <p className="font-serif font-light" style={{ fontSize: 'clamp(36px, 4vw, 56px)' }}>
+                7.500 <span className="text-[#8F8A7F] text-2xl">kr.</span>
               </p>
-              <Link
-                href="/kontakt"
-                className="font-mono text-[12px] font-[500] uppercase tracking-[0.16em] text-copper underline underline-offset-4 decoration-copper/50 transition-colors duration-200 hover:text-copper/80"
-              >
-                → Få en uforpligtende vurdering
-              </Link>
+              <p className="text-[#8F8A7F] text-sm mt-1">ex. moms · herefter minimum 10.000 kr./måned</p>
+            </div>
+          </div>
+          <div className="md:col-span-5 md:col-start-8 border border-[#DCD6C7] p-8 bg-[#FAF8F3]">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-6">Betingelser</p>
+            <ul className="flex flex-col gap-4">
+              {[
+                'Google Ads-spend under 30.000 kr./måned',
+                'Kræver gennemført opstartspakke',
+                'Fast 3-måneders introduktionsperiode',
+                'Automatisk overgang til løbende samarbejde fra måned 4',
+              ].map((item) => (
+                <li key={item} className="flex gap-4 text-[#5A554B] text-sm leading-relaxed">
+                  <span className="text-[#B6794D] font-mono">→</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="border-t border-[#DCD6C7] mt-8 pt-6">
+              <p className="text-[#8F8A7F] text-sm leading-relaxed">
+                Har du et spend over 30.000 kr./måned er du allerede godt i gang — og du starter direkte på det løbende samarbejde.
+              </p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Løbende samarbejde */}
+      <section className="border-b border-[#DCD6C7] py-20 px-7 md:px-14">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[#B6794D] mb-4">
+                — Løbende samarbejde
+              </p>
+              <h2
+                className="font-serif font-light leading-tight"
+                style={{ fontSize: 'clamp(28px, 3vw, 44px)' }}
+              >
+                Jo mere tid, desto billigere per dag
+              </h2>
+            </div>
+            <p className="text-[#8F8A7F] text-sm max-w-sm leading-relaxed">
+              Mere tid betyder dybere kendskab til forretningen og hurtigere beslutninger. Det afspejles i prisen.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-0 border border-[#DCD6C7]">
+            {pricingTiers.map((tier, i) => (
+              <div
+                key={tier.days}
+                className={`
+                  p-8 flex flex-col gap-8 border-r border-[#DCD6C7] last:border-r-0
+                  border-b md:border-b-0
+                  ${tier.featured ? 'bg-[#F2EFE7]' : ''}
+                `}
+              >
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-3">
+                    {String(i + 1).padStart(2, '0')}
+                  </p>
+                  <p className="font-medium text-[#16140F] text-lg leading-snug">
+                    {tier.days}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-2">
+                    Pr. måned
+                  </p>
+                  <p className="font-serif font-light text-4xl">
+                    {tier.monthlyPrice}
+                    <span className="text-[#8F8A7F] text-lg ml-1">kr.</span>
+                  </p>
+                  <p className="text-[#8F8A7F] text-xs mt-1">ex. moms</p>
+                </div>
+
+                <div className="border-t border-[#DCD6C7] pt-6">
+                  <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-2">
+                    Dagspris
+                  </p>
+                  <p className="text-[#B6794D] font-medium">
+                    {tier.dayRate} kr.
+                  </p>
+                </div>
+
+                <p className="text-[#8F8A7F] text-sm leading-relaxed mt-auto">
+                  {tier.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 grid md:grid-cols-2 gap-8">
+            <p className="text-[#8F8A7F] text-sm leading-relaxed">
+              Ingen binding udover de løbende 3 måneder. Ingen skjulte fees. Ingen procent af dit annoncebudget.
+            </p>
+            <p className="text-[#8F8A7F] text-sm leading-relaxed">
+              Har du en konto der spender tæt på 1.000.000 kr./måned? Du køber stadig dage — bare flere af dem. Kontakt mig direkte.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 px-7 md:px-14">
+        <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-widest text-[#B6794D] mb-6">
+              — Næste skridt
+            </p>
+            <h2
+              className="font-serif font-light leading-tight mb-8"
+              style={{ fontSize: 'clamp(28px, 3.5vw, 52px)' }}
+            >
+              Usikker på hvad du har brug for?
+            </h2>
+            <p className="text-[#5A554B] leading-relaxed mb-10 max-w-lg">
+              Skriv til mig med et kort overblik over din situation — spend, platform og hvad du oplever som det største problem. Så vender jeg tilbage med en ærlig vurdering.
+            </p>
+            <a
+              href="/kontakt"
+              className="inline-flex items-center gap-3 text-[#16140F] border-b border-[#B6794D] pb-0.5 hover:text-[#B6794D] transition-colors duration-200 font-medium"
+            >
+              Skriv til mig
+              <span className="text-[#B6794D]">→</span>
+            </a>
+          </div>
+          <div className="border border-[#DCD6C7] p-10 bg-[#F2EFE7]">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-8">
+              Hvad sker der når du skriver
+            </p>
+            <ul className="flex flex-col gap-6">
+              {[
+                ['Jeg kigger på din konto', 'Inden vi taler har jeg dannet mig et billede af din situation.'],
+                ['Vi tager en snak', '30 minutter. Ingen salg — bare en ærlig vurdering af hvad der giver mening.'],
+                ['Vi starter med opstartspakken', 'Og derfra bygger vi samarbejdet op fra et solidt fundament.'],
+              ].map(([title, desc]) => (
+                <li key={title} className="flex gap-4">
+                  <span className="text-[#B6794D] font-mono mt-0.5">→</span>
+                  <div>
+                    <p className="font-medium text-[#16140F] mb-1">{title}</p>
+                    <p className="text-[#8F8A7F] text-sm leading-relaxed">{desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
     </main>
-  );
+  )
 }
