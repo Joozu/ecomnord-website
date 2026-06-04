@@ -10,29 +10,32 @@ export const metadata: Metadata = {
 
 const pricingTiers = [
   {
+    index: '01',
     days: '½ dag / uge',
-    monthlyPrice: '10.000',
-    dayRate: '20.000',
+    hours: '14 timer / måned',
+    monthlyPrice: '12.500',
+    hourRate: '~893',
+    overtimeRate: '900',
     description: 'Udgangspunktet for nye samarbejder. Nok tid til løbende optimering, feed-arbejde og strategisk retning.',
   },
   {
+    index: '02',
     days: '1 dag / uge',
-    monthlyPrice: '18.000',
-    dayRate: '18.000',
+    hours: '25 timer / måned',
+    monthlyPrice: '20.000',
+    hourRate: '800',
+    overtimeRate: '800',
     description: 'Til konti der er klar til at accelerere. Mere tid betyder dybere kendskab og hurtigere beslutninger.',
     featured: true,
   },
   {
+    index: '03',
     days: '2 dage / uge',
-    monthlyPrice: '32.000',
-    dayRate: '16.000',
-    description: 'Til ambitiøse webshops med høj kompleksitet eller flere markeder. Tæt daglig dialog.',
-  },
-  {
-    days: '3 dage / uge',
-    monthlyPrice: '45.000',
-    dayRate: '15.000',
-    description: 'Fuld prioritet. Til store konti hvor Google Ads er en kernedisciplin i forretningen.',
+    hours: '50 timer / måned',
+    monthlyPrice: '35.000',
+    hourRate: '700',
+    overtimeRate: '700',
+    description: 'Til ambitiøse webshops med høj kompleksitet eller flere markeder. Yderligere tid faktureres til 700 kr./t.',
   },
 ]
 
@@ -175,7 +178,7 @@ export default function PriserPage() {
               <p className="font-serif font-light" style={{ fontSize: 'clamp(36px, 4vw, 56px)' }}>
                 7.500 <span className="text-[#8F8A7F] text-2xl">kr.</span>
               </p>
-              <p className="text-[#8F8A7F] text-sm mt-1">ex. moms · herefter minimum 10.000 kr./måned</p>
+              <p className="text-[#8F8A7F] text-sm mt-1">ex. moms · herefter minimum 12.500 kr./måned</p>
             </div>
           </div>
           <div className="md:col-span-5 md:col-start-8 border border-[#DCD6C7] p-8 bg-[#FAF8F3]">
@@ -214,31 +217,32 @@ export default function PriserPage() {
                 className="font-serif font-light leading-tight"
                 style={{ fontSize: 'clamp(28px, 3vw, 44px)' }}
               >
-                Jo mere tid, desto billigere per dag
+                Jo mere tid, desto billigere per time
               </h2>
             </div>
             <p className="text-[#8F8A7F] text-sm max-w-sm leading-relaxed">
-              Mere tid betyder dybere kendskab til forretningen og hurtigere beslutninger. Det afspejles i prisen.
+              Mere tid betyder dybere kendskab til forretningen og hurtigere beslutninger. Det afspejles i timeprisen.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-0 border border-[#DCD6C7]">
-            {pricingTiers.map((tier, i) => (
+          <div className="grid md:grid-cols-3 gap-0 border border-[#DCD6C7]">
+            {pricingTiers.map((tier) => (
               <div
                 key={tier.days}
                 className={`
-                  p-8 flex flex-col gap-8 border-r border-[#DCD6C7] last:border-r-0
+                  p-8 flex flex-col gap-6 border-r border-[#DCD6C7] last:border-r-0
                   border-b md:border-b-0
                   ${tier.featured ? 'bg-[#F2EFE7]' : ''}
                 `}
               >
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-3">
-                    {String(i + 1).padStart(2, '0')}
+                    {tier.index}
                   </p>
                   <p className="font-medium text-[#16140F] text-lg leading-snug">
                     {tier.days}
                   </p>
+                  <p className="text-[#8F8A7F] text-sm mt-1">{tier.hours}</p>
                 </div>
 
                 <div>
@@ -252,13 +256,23 @@ export default function PriserPage() {
                   <p className="text-[#8F8A7F] text-xs mt-1">ex. moms</p>
                 </div>
 
-                <div className="border-t border-[#DCD6C7] pt-6">
-                  <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-2">
-                    Dagspris
-                  </p>
-                  <p className="text-[#B6794D] font-medium">
-                    {tier.dayRate} kr.
-                  </p>
+                <div className="border-t border-[#DCD6C7] pt-5 grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-[#8F8A7F] mb-1">
+                      Timepris
+                    </p>
+                    <p className="text-[#B6794D] font-medium text-sm">
+                      {tier.hourRate} kr./t
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-[#8F8A7F] mb-1">
+                      Overtid
+                    </p>
+                    <p className="text-[#5A554B] font-medium text-sm">
+                      {tier.overtimeRate} kr./t
+                    </p>
+                  </div>
                 </div>
 
                 <p className="text-[#8F8A7F] text-sm leading-relaxed mt-auto">
@@ -268,12 +282,33 @@ export default function PriserPage() {
             ))}
           </div>
 
-          <div className="mt-8 grid md:grid-cols-2 gap-8">
+          {/* Ad hoc */}
+          <div className="mt-0 border border-t-0 border-[#DCD6C7] p-8 grid md:grid-cols-12 gap-8 items-center">
+            <div className="md:col-span-3">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-3">
+                Ad hoc
+              </p>
+              <p className="font-medium text-[#16140F] text-lg">Ingen fast aftale</p>
+              <p className="text-[#8F8A7F] text-sm mt-1">Faktureres pr. time</p>
+            </div>
+            <div className="md:col-span-3">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[#8F8A7F] mb-2">Timepris</p>
+              <p className="font-serif font-light text-4xl">
+                1.200
+                <span className="text-[#8F8A7F] text-lg ml-1">kr.</span>
+              </p>
+              <p className="text-[#8F8A7F] text-xs mt-1">ex. moms</p>
+            </div>
+            <div className="md:col-span-5 md:col-start-8">
+              <p className="text-[#8F8A7F] text-sm leading-relaxed">
+                Til enkeltstående opgaver uden løbende aftale. Audit, rådgivning, second opinion eller akut hjælp til en konto. Ingen binding, ingen minimumstimer.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8">
             <p className="text-[#8F8A7F] text-sm leading-relaxed">
-              Ingen binding udover de løbende 3 måneder. Ingen skjulte fees. Ingen procent af dit annoncebudget.
-            </p>
-            <p className="text-[#8F8A7F] text-sm leading-relaxed">
-              Har du en konto der spender tæt på 1.000.000 kr./måned? Du køber stadig dage — bare flere af dem. Kontakt mig direkte.
+              Ingen binding udover de løbende 3 måneder. Ingen skjulte fees. Ingen procent af dit annoncebudget. Overtidstimer faktureres til pakkens timepris — ikke ad hoc-prisen.
             </p>
           </div>
         </div>
